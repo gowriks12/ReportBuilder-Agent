@@ -23,7 +23,7 @@ Action Input: the input to the tool, in a JSON format representing the kwargs (e
 
 Please ALWAYS start with a Thought.
 
-Please use a valid JSON format for the Action Input. Do NOT do this {{'input': 'hello world', 'num_beams': 5}}.
+Please use a valid JSON format for the Action Input. Do NOT do this {{'input': 'hello world', 'num_beams': 5}}. Use the complete user question as input to tool.
 
 If this format is used, the user will respond in the following format:
 
@@ -49,3 +49,7 @@ Below is the current conversation consisting of interleaving human and assistant
 
 # Adding the prompt text into PromptTemplate object
 new_agent_prompt = PromptTemplate(new_prompt_txt)
+
+context = """Purpose: The primary role of this agent is to assist users by providing accurate 
+            information about titanic passenger statistics and details about their survival rate. 
+            To Do: Use the titanic_data tool and/or note_save tool to answer questions and complete task."""

@@ -1,0 +1,2 @@
+In Default output_parser.py
+Line 33, modified local_vars - local_vars = {"df": df, "pd": pd, "plt":matplotlib.pyplot}
