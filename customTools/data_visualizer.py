@@ -8,7 +8,7 @@ from llama_index.core.tools import QueryEngineTool, ToolMetadata
 load_dotenv()
 
 
-df = pd.read_csv("../data/titanic.csv")
+df = pd.read_csv("data/titanic.csv")
 # print(df.head())
 
 df_query_engine = PandasQueryEngine(df = df, verbose=True, instruction_str=instruction_str) #specifying the query engine for RAG

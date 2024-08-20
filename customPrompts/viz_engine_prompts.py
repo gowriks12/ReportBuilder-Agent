@@ -10,9 +10,9 @@ qna_instruction_str = """\
 
 instruction_str = """\
     1. Convert the query to executable Python code using Pandas and matplotlib.pyplot.
-    2. STRICTLY RETURN ONLY CODE WITHOUT IMPORT STATEMENTS
+    2. STRICTLY RETURN ONLY CODE WITHOUT IMPORT STATEMENTS OR MENTIONING LANGUAGE OF USE
     3. Set ax = pandas expression and add any necessary pyplot styling attributes to this variable.
-    4. Save the plot in current directory using plt.savefig(), give image a valid name as per query.
+    4. Save the plot in current directory using plt.savefig(), give image a valid name as per query and print the figure name.
     4. The final line of code should be plt.show() Python expression that can be called with the `eval()` function to display a plot.
     5. The Plot should represent a solution to the query.
     """

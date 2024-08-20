@@ -1,7 +1,7 @@
 from llama_index.core.tools import FunctionTool
 import os
 
-note_file = os.path.join("../data", "notes.txt")
+note_file = os.path.join("../data", "report-1.txt")
 
 def save_note(note):
     if not os.path.exists(note_file):
