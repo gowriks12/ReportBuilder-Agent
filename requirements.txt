@@ -1,5 +1,6 @@
 llama-index
 pandas
+matplotlib
 python-dotenv
 llama-index-readers-wikipedia
 llama-index-experimental

@@ -2,7 +2,8 @@ import os
 import shutil
 import datetime
 
-def get_most_recent_image(folder_path):
+def get_most_recent_image():
+    folder_path = 'C:\\Users\\gowri\\Documents\\Projects\\ReportBuilder-Agent'
     # List all files in the directory
     files = os.listdir(folder_path)
 
@@ -45,7 +46,20 @@ def get_report_name():
     formatted_datetime = current_datetime.strftime("%Y%m%d_%H%M%S")
 
     # Create the filename with the datetime included
-    report_name = f"report_{formatted_datetime}.txt"
+    # report_name = f"report_{formatted_datetime}.txt"
+    report_name = f"report_{formatted_datetime}.docx"
     print(report_name)
     return report_name
     # print(f"The most recently created image is: {recent_image}")
+
+
+# def save_note(note):
+#     if not os.path.exists(note_file):
+#         open(note_file, "w")
+#     with open(note_file, "a") as f:
+#         f.writelines([note + "\n"])
+#
+#     return "note saved"
+#
+# report_name = get_report_name()
+# note_file = os.path.join("Reports", report_name)
