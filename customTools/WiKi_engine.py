@@ -1,15 +1,6 @@
 from llama_index.core.tools.ondemand_loader_tool import OnDemandLoaderTool
 from llama_index.readers.wikipedia import WikipediaReader
-# from llama_index.tools.wikipedia import WikipediaToolSpec
-# from llama_index.tools.tool_spec.load_and_search.base import LoadAndSearchToolSpec
-from typing import List
 
-from pydantic import BaseModel
-
-# wiki_spec = WikipediaToolSpec()
-# # Get the search wikipedia tool
-# tool = wiki_spec.to_tool_list()[1]
-# Wikipedia = LoadAndSearchToolSpec.from_defaults(tool).to_tool_list()
 reader = WikipediaReader()
 
 Wikipedia = OnDemandLoaderTool.from_defaults(
