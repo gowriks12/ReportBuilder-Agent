@@ -1,0 +1,9 @@
+In Default output_parser.py
+Line 6 added import for matplotlib import matplotlib.pyplot
+Line 33, modified local_vars - local_vars = {"df": df, "pd": pd, "plt":matplotlib.pyplot}
+
+
+local_vars = {"df": df, "pd": pd, "plt":matplotlib.pyplot}
+global_vars = {"np": np}
+
+
