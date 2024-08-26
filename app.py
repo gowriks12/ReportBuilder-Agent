@@ -35,38 +35,38 @@ if (
 if st.button("Generate Report"):
     with st.spinner("Generating a report..."):
         createDoc(text=st.session_state.report)
-        st.session_state["chat_answers_history"]
+        st.session_state["chat_answers_history"] = []
         st.session_state["num_images_generated"] = 0
         # chain = get_chain(pdf_files)
-else:
-    prompt = st.text_input("Prompt", placeholder="Ask anything to your PDFs...") or st.button(
-        "Submit"
-    )
 
-    if prompt:
-        with st.spinner("Generating response..."):
-            # generated_response = run_llm(
-            #     query=prompt, chat_history=st.session_state["chat_history"]
-            # )
-            # generated_response = st.session_state.chain({"question": prompt, "chat_history": st.session_state.chat_history})
-            # formatted_response = (
-            #     f"{generated_response['answer']}"
-            # )
-            generated_response = agent.query(prompt)
-            generated_response = generated_response.__str__()
-            images_generated, most_recent_image = get_most_recent_image()
-            if st.session_state.num_images_generated < len(images_generated):
-                image = Image.open(most_recent_image)
-                st.image(image, caption=generated_response)
-                print(most_recent_image)
-                st.session_state.num_images_generated = len(images_generated)
-                st.session_state.chat_answers_history.append("Image: "+most_recent_image)
+prompt = st.text_input("Prompt", placeholder="Ask anything to your PDFs...") or st.button(
+    "Submit"
+)
 
-            st.session_state.chat_history.append((prompt, generated_response))
-            st.session_state.user_prompt_history.append(prompt)
-            generated_response = generated_response + '\n'
-            st.session_state.report += generated_response
-            st.session_state.chat_answers_history.append(generated_response)
+if prompt:
+    with st.spinner("Generating response..."):
+        # generated_response = run_llm(
+        #     query=prompt, chat_history=st.session_state["chat_history"]
+        # )
+        # generated_response = st.session_state.chain({"question": prompt, "chat_history": st.session_state.chat_history})
+        # formatted_response = (
+        #     f"{generated_response['answer']}"
+        # )
+        generated_response = agent.query(prompt)
+        generated_response = generated_response.__str__()
+        images_generated, most_recent_image = get_most_recent_image()
+        if st.session_state.num_images_generated < len(images_generated):
+            image = Image.open(most_recent_image)
+            st.image(image, caption=generated_response)
+            print(most_recent_image)
+            st.session_state.num_images_generated = len(images_generated)
+            st.session_state.chat_answers_history.append("Image: "+most_recent_image)
+
+        st.session_state.chat_history.append((prompt, generated_response))
+        st.session_state.user_prompt_history.append(prompt)
+        generated_response = generated_response + '\n'
+        st.session_state.report += generated_response
+        st.session_state.chat_answers_history.append(generated_response)
 
 
 
