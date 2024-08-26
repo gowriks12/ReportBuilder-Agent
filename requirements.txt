@@ -6,3 +6,5 @@ llama-index-readers-wikipedia
 llama-index-experimental
 llama-index-readers-file
 wikipedia
+streamlit
+
