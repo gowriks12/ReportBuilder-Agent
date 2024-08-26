@@ -7,7 +7,6 @@ instruction_str = """\
     4. PRINT ONLY THE EXPRESSION.
     5. Do not quote the expression."""
 
-
 pandas_qna_prompt = PromptTemplate(
     """\
     You are working with a pandas dataframe in Python.
