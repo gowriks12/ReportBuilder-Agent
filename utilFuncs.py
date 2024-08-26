@@ -3,7 +3,8 @@ import shutil
 import datetime
 
 def get_most_recent_image():
-    folder_path = 'C:\\Users\\gowri\\Documents\\Projects\\ReportBuilder-Agent'
+    folder_path = 'C:\\Users\\gowri\\Documents\\Projects\\ReportBuilder-Agent\\Plots'
+    # dest_path = 'C:\\Users\\gowri\\Documents\\Projects\\ReportBuilder-Agent\\GeneratedPlots'
     # List all files in the directory
     files = os.listdir(folder_path)
 
@@ -12,6 +13,7 @@ def get_most_recent_image():
 
     # Get the full path for each image file
     image_files = [os.path.join(folder_path, f) for f in image_files]
+    # moved_images = [move_image_to_folder(image,dest_path) for image in image_files]
     most_recent_image = ''
     # # Find the most recently created image file
     try:

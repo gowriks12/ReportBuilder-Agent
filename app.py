@@ -26,6 +26,7 @@ if (
     st.session_state["chat_history"] = []
     st.session_state["num_images_generated"] = 0
     st.session_state["report"] = ""
+    st.session_state["prompt"] = ""
     # st.session_state.chain = None
 
 # with st.sidebar:
@@ -37,22 +38,18 @@ if st.button("Generate Report"):
         createDoc(text=st.session_state.report)
         st.session_state["chat_answers_history"] = []
         st.session_state["num_images_generated"] = 0
-        # chain = get_chain(pdf_files)
+        st.session_state["user_prompt_history"] = []
+        st.session_state["report"] = ""
+        st.session_state.prompt = ""
 
-prompt = st.text_input("Prompt", placeholder="Ask anything to your PDFs...") or st.button(
+
+st.session_state.prompt = st.text_input("Prompt", placeholder="Ask anything to your PDFs...") or st.button(
     "Submit"
 )
 
-if prompt:
+if st.session_state.prompt:
     with st.spinner("Generating response..."):
-        # generated_response = run_llm(
-        #     query=prompt, chat_history=st.session_state["chat_history"]
-        # )
-        # generated_response = st.session_state.chain({"question": prompt, "chat_history": st.session_state.chat_history})
-        # formatted_response = (
-        #     f"{generated_response['answer']}"
-        # )
-        generated_response = agent.query(prompt)
+        generated_response = agent.query(st.session_state.prompt)
         generated_response = generated_response.__str__()
         images_generated, most_recent_image = get_most_recent_image()
         if st.session_state.num_images_generated < len(images_generated):
@@ -62,15 +59,14 @@ if prompt:
             st.session_state.num_images_generated = len(images_generated)
             st.session_state.chat_answers_history.append("Image: "+most_recent_image)
 
-        st.session_state.chat_history.append((prompt, generated_response))
-        st.session_state.user_prompt_history.append(prompt)
+        st.session_state.chat_history.append((st.session_state.prompt, generated_response))
+        st.session_state.user_prompt_history.append(st.session_state.prompt)
         generated_response = generated_response + '\n'
         st.session_state.report += generated_response
         st.session_state.chat_answers_history.append(generated_response)
 
 
-
-if st.session_state["chat_answers_history"]:
+if len(st.session_state["chat_answers_history"]) >= 1:
     j = 0
     for i in range(len(st.session_state["user_prompt_history"])):
         generated_response = st.session_state["chat_answers_history"][j]
