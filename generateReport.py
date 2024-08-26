@@ -23,3 +23,4 @@ def createDoc(text):
     report_name = get_report_name()
     # Now save the document to a location
     doc.save(os.path.join(download_path, report_name))
+    return os.path.join(download_path, report_name)
