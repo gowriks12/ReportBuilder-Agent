@@ -14,7 +14,7 @@ def createDoc(text):
     doc.add_heading('General Information and Statistics', 3)
     doc.add_paragraph(text)
     doc.add_heading('Visualizations Generated', 3)
-    images = get_most_recent_image()
+    images, recent_image = get_most_recent_image()
     for image in images:
         doc.add_picture(image, width=Inches(4), height=Inches(4))
         plots_folder = 'C:\\Users\\gowri\\Documents\\Projects\\ReportBuilder-Agent\\GeneratedPlots'

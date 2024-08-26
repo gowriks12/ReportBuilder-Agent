@@ -12,11 +12,12 @@ def get_most_recent_image():
 
     # Get the full path for each image file
     image_files = [os.path.join(folder_path, f) for f in image_files]
-
+    most_recent_image = ''
     # # Find the most recently created image file
-    # most_recent_image = max(image_files, key=os.path.getctime)
-
-    return image_files
+    try:
+        most_recent_image = max(image_files, key=os.path.getctime)
+    finally:
+        return image_files, most_recent_image
 
 
 def move_image_to_folder(image_path, destination_folder):
