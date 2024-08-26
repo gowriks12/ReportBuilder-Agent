@@ -1,6 +1,7 @@
+import pandas as pd
 import streamlit as st
 from streamlit_chat import message
-from customAgent import agent
+from customAgent import get_agent, get_titanic_agent
 from utilFuncs import *
 from PIL import Image
 
@@ -16,23 +17,32 @@ st.header("Data EDA Assistant")
 if (
     "chat_answers_history" not in st.session_state
     and "user_prompt_history" not in st.session_state
-    and "chat_history" not in st.session_state
     and "num_images_generated" not in st.session_state
     and "report" not in st.session_state
+    and "data_path" not in st.session_state
+    and "pdf_path" not in st.session_state
     # and "chain" not in st.session_state
 ):
     st.session_state["chat_answers_history"] = []
     st.session_state["user_prompt_history"] = []
-    st.session_state["chat_history"] = []
     st.session_state["num_images_generated"] = 0
     st.session_state["report"] = ""
     st.session_state["prompt"] = ""
+    st.session_state["df"] = None
     # st.session_state.chain = None
 
-# with st.sidebar:
-#     st.subheader("Upload your Documents Here: ")
-#     pdf_files = st.file_uploader("Choose your PDF Files and Press OK", type=['pdf'], accept_multiple_files=True)
-#
+with st.sidebar:
+    st.subheader("Upload your Data Here: ")
+    csv_file = st.file_uploader("Choose your Preprocessed Dataset and Press Upload CSV", type=['csv'], accept_multiple_files=False)
+
+    if st.button("Upload CSV"):
+        with st.spinner("Processing your PDFs..."):
+            # df = pd.read_csv(csv_file)
+            # print(df)
+            st.session_state.df = pd.read_csv(csv_file)
+
+
+
 if st.button("Generate Report"):
     with st.spinner("Generating a report..."):
         report_path = createDoc(text=st.session_state.report)
@@ -56,6 +66,11 @@ else:
     
     if st.session_state.prompt:
         with st.spinner("Generating response..."):
+            if not st.session_state.df.empty:
+                # print("CSVVVVV",st.session_state.df)
+                agent = get_agent(st.session_state.df)
+            else:
+                agent = get_titanic_agent()
             generated_response = agent.query(st.session_state.prompt)
             generated_response = generated_response.__str__()
             images_generated, most_recent_image = get_most_recent_image()
@@ -66,7 +81,7 @@ else:
                 st.session_state.num_images_generated = len(images_generated)
                 st.session_state.chat_answers_history.append("Image: "+most_recent_image)
 
-            st.session_state.chat_history.append((st.session_state.prompt, generated_response))
+            # st.session_state.chat_history.append((st.session_state.prompt, generated_response))
             st.session_state.user_prompt_history.append(st.session_state.prompt)
             generated_response = generated_response + '\n'
             st.session_state.report += generated_response
