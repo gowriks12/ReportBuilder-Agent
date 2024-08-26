@@ -17,11 +17,24 @@ def get_index(data, index_name):
         )
     return index
 
+def get_index(index_path):
+    index = None
+    if os.path.exists(index_path):
+        index = load_index_from_storage(
+            StorageContext.from_defaults(persist_dir=index_path)
+        )
+        print("loading index", index_path)
+    else:
+        pdf_path = "data/titanic_info.pdf"
+        titanic_pdf = PDFReader().load_data(file=pdf_path)
+        index = VectorStoreIndex.from_documents(titanic_pdf, show_progress=True)
+        index.storage_context.persist(persist_dir=index_path)
 
-pdf_path = "data/titanic_info.pdf"
+    return index
+
+
 index_path = "data/titanic_info_index"
-titanic_pdf = PDFReader().load_data(file=pdf_path)
-titanic_index = get_index(titanic_pdf, index_path)
+titanic_index = get_index(index_path)
 
 titanic_info_engine = titanic_index.as_query_engine()
 titanic_info_tool = QueryEngineTool(
