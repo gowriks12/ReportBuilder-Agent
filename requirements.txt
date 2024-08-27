@@ -9,3 +9,4 @@ wikipedia
 streamlit
 streamlit_chat
 docx
+llama-index-embeddings-openai
