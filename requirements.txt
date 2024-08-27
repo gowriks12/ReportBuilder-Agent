@@ -9,4 +9,3 @@ wikipedia
 streamlit
 streamlit_chat
 docx
-exceptions
