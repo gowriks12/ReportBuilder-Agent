@@ -28,7 +28,7 @@ if (
     st.session_state["num_images_generated"] = 0
     st.session_state["report"] = ""
     st.session_state["prompt"] = ""
-    st.session_state["df"] = None
+    st.session_state["df"] = pd.DataFrame()
     # st.session_state.chain = None
 
 with st.sidebar:
