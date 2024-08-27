@@ -8,4 +8,5 @@ llama-index-readers-file
 wikipedia
 streamlit
 streamlit_chat
+docx
 
